@@ -1,0 +1,87 @@
+ <!doctype html>
+    <html lang="en" ng-app="toDoApp"> 
+      <head>
+      	<meta charset="UTF-8">
+      	<title>toDo App</title>
+        <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+        <script src="js/jquery-2.1.4.min.js"></script>
+        <script src="js/jquery-ui-1.11.4/jquery-ui.js"></script>
+        <script src="../angular/angular.js"></script>
+        <script src="../angular/angular-route.js"></script>
+        <script src="../angular/angular-animate.js"></script>
+        <script src="js/sortable.js"></script>
+        
+<!--        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>    -->
+       
+        <script src="app/controllers/controllers.js"></script>
+        <script src="app/app.js"></script>
+      </head>
+ 	    <body>
+        
+        <div id="page">
+          <section class="text-center" ng-controller="mainCtrl as tc">
+            <div>
+
+                <h1 class="shadow">toDo App</h1>
+                
+                <form>
+                    <input ng-model="tc.newTodo.title" type="text" size="20" placeholder="what needs to be done?" />
+                    
+                    <input ng-model="tc.newTodo.time" type="text" id="timePicker" 
+                          size="21" placeholder="by 17:00" />
+                    
+                    <select class="select-priority" ng-model="tc.dataPriority.selectedOption"
+                            ng-options="option.name for option in tc.dataPriority.availableOptions track by option.id">
+                    </select>
+                    
+                    <button class="button" ng-click="tc.add()">Add</button>
+                </form>
+
+                <ul class="shadow main-ul" ui-sortable ng-model="tc.storage">
+                    <li class="slide-left" ng-repeat="task in tc.storage track by $index"
+                        ng-mouseenter="valbool=false"
+                        ng-mouseleave="valbool=true">
+                      
+                      <div class="inline" ng-class="{viewbtn: valbool}" ng-init="valbool=true">
+                          <img ng-src="/todo/css/circle{{task.priority.id}}.png" 
+                                ng-click="task.priority = tc.increasePriority(task.priority)" />
+                          <input type="checkbox" class="checkbox shadow" ng-model="task.done"> 
+                          <button class="btn-x shadow" ng-click="tc.delete($index)">X</button>
+                      </div> 
+
+                      <label class="done-{{task.done}} mult-line" 
+                            ng-init="time2 = tc.returnDateFromMs(task.time);">
+                          {{ task.title }}  
+
+                          {{tc.time3 = (task.time - tc.timeNow)}}
+
+                      </label>
+                      <br /><span ng-class="{viewbtn: valbool}" style="font-size: 60%">{{ time2 }} </span>
+                      
+
+                    </li>
+                </ul>
+
+                <span>
+                  <label class="items-left">
+                    <ng-pluralize count="tc.remainingItems()"
+                                  when="{'0' : 'Nothing to do',
+                                        'one': 'Only 1 item left',
+                                      'other': '{} of {{tc.leftItems()}} items left'}">
+                    </ng-pluralize>
+                  </label>
+                  
+                  <select class="select-sorting" ng-model="tc.options.m1" ng-change="tc.sortTasks(tc.options.m1)">
+                      <option ng-repeat="opt in tc.options.opts" ng-value="opt.val">{{ opt.name}}</option>
+                  </select>
+                
+                </span>
+
+            </div>
+          </section>
+
+        </div>      
+      </body>
+    </html>
