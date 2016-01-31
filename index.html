@@ -50,7 +50,7 @@
                         ng-mouseleave="valbool=true">
                       
                       <div class="inline" ng-class="{viewbtn: valbool}" ng-init="valbool=true">
-                          <img ng-src="/css/circle{{task.priority.id}}.png" 
+                          <img ng-src="/Todo/css/circle{{task.priority.id}}.png" 
                                 ng-click="task.priority = tc.increasePriority(task.priority)" />
                           <input type="checkbox" class="checkbox shadow" ng-model="task.done"> 
                           <button class="btn-x shadow" ng-click="tc.delete($index)">X</button>
