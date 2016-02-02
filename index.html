@@ -4,21 +4,22 @@
       	<meta charset="UTF-8">
       	<title>toDo App</title>
         <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
-        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-<!--       <script src="js/jquery-2.1.4.min.js"></script>
+
+<!--        <link rel="stylesheet" type="text/css" href="js/jquery-ui-1.11.4/jquery-ui.css">
+ 
+        <script src="js/jquery-2.1.4.min.js"></script>
         <script src="js/jquery-ui-1.11.4/jquery-ui.js"></script>
         <script src="../angular/angular.js"></script>
         <script src="../angular/angular-route.js"></script>
-        <script src="../angular/angular-animate.js"></script>-->
-
-        
+        <script src="../angular/angular-animate.js"></script>		-->
 
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>    
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
-
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-route.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>   
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
+        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>   
+    
         <script src="js/sortable.js"></script>           
         <script src="app/controllers/controllers.js"></script>
         <script src="app/app.js"></script>
@@ -27,7 +28,7 @@
         
         <div id="page">
           <section class="text-center" ng-controller="mainCtrl as tc">
-            <div>
+            <div ng-controller="timeController as timeCtrl">
 
                 <h1 class="shadow">toDo App</h1>
                 
@@ -56,14 +57,14 @@
                           <button class="btn-x shadow" ng-click="tc.delete($index)">X</button>
                       </div> 
 
-                      <label class="done-{{task.done}} mult-line" 
-                            ng-init="time2 = tc.returnDateFromMs(task.time);">
-                          {{ task.title }}  
-
-                          {{tc.time3 = (task.time - tc.timeNow)}}
-
+                      <label class="done-{{task.done}} mult-line">
+                          {{ task.title }}  {{timeCtrl.timer(task.time)}} <br />
                       </label>
-                      <br /><span ng-class="{viewbtn: valbool}" style="font-size: 60%">{{ time2 }} </span>
+
+                      <span ng-class="{viewbtndate: valbool}" style="font-size: 60%"
+                                ng-init="time2 = tc.returnDateFromMs(task.time);">
+                          start at:{{ time2 }},  left: {{timeCtrl.left(task.time)}}
+                      </span>
                       
 
                     </li>

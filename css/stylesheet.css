@@ -41,7 +41,7 @@ ul.main-ul{
 
 ul.main-ul li{
   box-shadow: 1px 3px 3px 0 rgba(0, 0, 0, 0.4);
-  margin: 5px 0;
+  margin-top: 5px;
   max-width: 500px;
   padding: 5px 5px;
   font-size: 120%;
@@ -115,7 +115,7 @@ input, select {
 }
 
 input:focus, select:focus, button:focus {
-  border: solid 1px #FF8C00; /*color: lightblue*/
+  border: solid 1px #FF8C00;
 }
 
 .btn-x {
@@ -131,6 +131,10 @@ input:focus, select:focus, button:focus {
   visibility: hidden;
 }
 
+.viewbtndate {
+  display: none;
+}
+
 .done-true {
   text-decoration: line-through;
   color: #ccc;
@@ -139,10 +143,6 @@ input:focus, select:focus, button:focus {
 .items-left {
   font-size: 80%;
   padding-right: 80px;
-}
-
-.btnAllActive {
-  font-size: 80%;
 }
 
 .mult-line {

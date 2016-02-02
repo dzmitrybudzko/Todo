@@ -31,9 +31,9 @@ myApp.controller('mainCtrl', ['$scope', '$filter', '$timeout',
 		
 
 		this.storage = [
-				{title: "learn angularjs", time: 1454168633000, priority: {name: "high", id: '1'}, done: false},
+				{title: "learn angularjs", time: 1455188633000, priority: {name: "high", id: '1'}, done: false},
 				{title: "wake up", time: 1461145633000, priority: {name: "normal", id: '2'}, done: true},
-				{title: "write e-mail", time: 1454185633000, priority: {name: "low", id: '3'}, done: false},
+				{title: "write e-mail", time: 1454785633000, priority: {name: "low", id: '3'}, done: false},
 				{title: "ride bicycle", time: 1464147633000, priority: {name: "low", id: '3'}, done: true},
 				{title: "play football", time: 1454245633000, priority: {name: "normal", id: '2'}, done: false}];
 
@@ -76,16 +76,13 @@ myApp.controller('mainCtrl', ['$scope', '$filter', '$timeout',
     	}
 
     	var interval = setInterval(function() {
+    		
     		self.timeNow = Date.now();
 			//console.log(self.time3);
 			
-			if (self.time3 < 0) {
-				alert('STOP');
-				console.log("stop");
-			};
 			$scope.$apply();
 			
-		}, 255)
+		}, 1000);
 		
 		
 		this.add = function() {
@@ -129,4 +126,32 @@ myApp.controller('mainCtrl', ['$scope', '$filter', '$timeout',
 
 	    
 }]);
+
+myApp.controller('timeController', ['$scope', '$timeout', 
+	function($scope, $timeout) {
+		timeCtrl = this;
+	
+		setInterval(function(){
+			timeCtrl.timeNow = Date.now();
+			$scope.apply;
+		}, 1000);
+	
+		this.timer = function(ms) {
+			var difference = ms - timeCtrl.timeNow;
+			var t1 = (difference > -5000 && difference < 0) ? " It's time to start!" : "" ;
+			var t2 = (difference > 0 && difference < 10000) ? Math.ceil(difference/1000) + " seconds left" : "" ;
+			return t1+t2;
+		};
+
+		this.left = function(ms) {
+			var difference = ms - timeCtrl.timeNow;
+			var t1 = (difference > 0 && difference < 60000) ? Math.ceil(difference/1000) + " seconds" : "" ;
+			var t2 = (difference > 60000 && difference < 60*60000) ? Math.ceil(difference/1000/60) + " minutes" : "" ;
+			var t3 = (difference > 60*60000 && difference < 60*60*60000) ? Math.ceil(difference/1000/60/60) + " hours" : "" ;
+			var t4 = (difference > 60*60*60000 && difference <365*60*60*60000) ? Math.ceil(difference/1000/60/60/24) + " days" : "" ;
+			var t5 = (difference > 365*60*60*60000) ? "not so far" : "";
+			return t1+t2+t3+t4+t5;
+		}
+	
+}])
 
